@@ -1,5 +1,3 @@
-'use strict';
-
 const http = require('http');
 const fs = require('fs');
 
@@ -12,7 +10,7 @@ const upload = multer({ dest: 'tmp/csv/' });
 const app = express();
 const router = new Router();
 const server = http.createServer(app);
-const port = 9000
+const port = 9000;
 
 const insert = require('./connect');
 
@@ -30,7 +28,7 @@ router.post('/', upload.single('file'), (req, res) => {
     .on("end", () => {
       insert(fileRows, respondWithUsers);
       fs.unlinkSync(req.file.path);
-    })
+    });
 });
 
 app.use('/upload-csv', router);
