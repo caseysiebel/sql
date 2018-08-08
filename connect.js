@@ -4,7 +4,7 @@ const users_schema = "'First Name', 'Last Name', 'Middle Initial', 'Email', 'Str
 
 let columns;
 
-module.exports = (data) => {
+module.exports = (data, callback) => {
   const db = new sqlite3.Database('./sample.db', (err) => {
     if (err) {
       console.error(err.message);
@@ -36,9 +36,8 @@ module.exports = (data) => {
                 );
               }
             });
-            db.all('SELECT * FROM users', (err, data) => {
-              console.log('');
-              console.log('SELECT *', data);
+            db.all('SELECT * FROM users', (err, users) => {
+              callback(users);
             });
             db.close((err) => {
               if (err) {

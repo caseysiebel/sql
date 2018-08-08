@@ -19,14 +19,17 @@ const insert = require('./connect');
 router.post('/', upload.single('file'), (req, res) => {
   const fileRows = [];
 
+  const respondWithUsers  = (users) => {
+    res.json(users);
+  };
+
   csv.fromPath(req.file.path)
     .on("data", (data) => {
       fileRows.push(data);
     })
     .on("end", () => {
-      insert(fileRows);
+      insert(fileRows, respondWithUsers);
       fs.unlinkSync(req.file.path);
-      res.end();
     })
 });
 
