@@ -24,7 +24,7 @@ module.exports = (data, callback) => {
               } 
               else {
                 db.run(
-                  `INSERT INTO users (${ columns }) VALUES (${ rowStr })`,
+                  `REPLACE INTO users (${ columns }) VALUES (${ rowStr })`,
                   (err) => {
                     if (err) {
                       console.error(err);
