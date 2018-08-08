@@ -4,7 +4,7 @@ let count = 0;
 const rows = [];
 
 csv
-  .fromPath("data.csv", {headers: true})
+  .fromPath("data.csv")
   .on("data", function(data){
     rows.push(data);
   })
