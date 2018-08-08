@@ -46,7 +46,7 @@ module.exports = (data) => {
     });
     db.all('SELECT * FROM users', (err, data) => {
       console.log('');
-      console.log('data', data);
+      console.log('SELECT *', data);
     });
   });
 

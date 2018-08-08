@@ -9,9 +9,5 @@ csv
     rows.push(data);
   })
   .on("end", function(){
-    console.log(rows)
-    console.log('==============================================')
     insert(rows);
   });
-
-
