@@ -14,6 +14,9 @@ const router = new Router();
 const server = http.createServer(app);
 const port = 9000
 
+
+const insert = require('./connect');
+
 router.post('/', upload.single('file'), function (req, res) {
   console.log('in route')
   const fileRows = [];
@@ -27,7 +30,9 @@ router.post('/', upload.single('file'), function (req, res) {
     })
     .on("end", function () {
       console.log(fileRows)
+      insert(fileRows);
       fs.unlinkSync(req.file.path);   // remove temp file
+      res.end();
       //process "fileRows" and respond
     })
 });
