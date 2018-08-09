@@ -9,22 +9,33 @@ const cols = [
   'UUID'
 ];
 
+let queryCols = '';
+
 module.exports = (data) => {
   let columns;
   let values = '';
+  let queryCols = '';
   const numRows = data.length;
   data.forEach((row, i) => {
     let rowValue = '';
     cols.forEach((col, j) => {
-      rowValue += `${ `'${ row[col] }'` || null }`;
-      if (j !== cols.length - 1) {
-        rowValue += ', ';
+      if(row[col]) {
+        rowValue += `'${ row[col] }'`;
+        if (j !== cols.length - 1) {
+          rowValue += ', ';
+        }
+        if (i === 0) {
+          queryCols += col;
+          if (j !== cols.length - 1) {
+            queryCols += ', ';
+          }
+        }
       }
     })
     values += `(${ rowValue })`;
-    if (i !== numRows - 1 && numRows !== 1) {
+    if (i !== numRows - 1) {
       values += ', ';
     }
   })
-  return [ cols.map(col => `'${col}'`) , values ];
+  return [ queryCols,  values ];
 }

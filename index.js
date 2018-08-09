@@ -14,19 +14,6 @@ const port = 9000;
 
 const insertData = require('./insert-data');
 
-const columns = [
-  "First Name", 
-  "Last Name", 
-  "Middle Initial", 
-  "Email TEXT",
-  "Street Address",
-  "Zip Code", 
-  "Joined Date", 
-  "UUID"
-];
-
-//console.log(columns)
-
 router.post('/', upload.single('users'), (req, res) => {
   const fileRows = [];
 
@@ -34,11 +21,8 @@ router.post('/', upload.single('users'), (req, res) => {
     res.json(users);
   };
 
-  console.log('HELLO')
   csv.fromPath(req.file.path, { headers: true })
     .on("data", (data) => {
-      //console.log(data)
-      //console.log(typeof data)
       fileRows.push(data);
     })
     .on("end", () => {
