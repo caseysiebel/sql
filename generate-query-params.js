@@ -14,11 +14,16 @@ module.exports = (data) => {
   let values = '';
   const numRows = data.length;
   data.forEach((row, i) => {
-    if (i === numRows - 1 || numRows === 1) {
-      values += `('${ row[cols[0]] | null }', '${ row[cols[1]] | null}', '${ row[cols[2]] | null }', '${ row[cols[3]] | null }', '${ row[cols[4]] | null }', '${ row[cols[5]] | null }', '${ row[cols[6]] | null }', '${ row[cols[7]] | null }')`;
-    }
-    else {
-      values += `('${ row[cols[0]] | null }', '${ row[cols[1]] | null}', '${ row[cols[2]] | null }', '${ row[cols[3]] | null }', '${ row[cols[4]] | null }', '${ row[cols[5]] | null }', '${ row[cols[6]] | null }', '${ row[cols[7]] | null }'), `;
+    let rowValue = '';
+    cols.forEach((col, j) => {
+      rowValue += `${ `'${ row[col] }'` || null }`;
+      if (j !== cols.length - 1) {
+        rowValue += ', ';
+      }
+    })
+    values += `(${ rowValue })`;
+    if (i !== numRows - 1 && numRows !== 1) {
+      values += ', ';
     }
   })
   return [ cols.map(col => `'${col}'`) , values ];

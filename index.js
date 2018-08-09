@@ -25,7 +25,7 @@ const columns = [
   "UUID"
 ];
 
-console.log(columns)
+//console.log(columns)
 
 router.post('/', upload.single('users'), (req, res) => {
   const fileRows = [];
@@ -37,8 +37,8 @@ router.post('/', upload.single('users'), (req, res) => {
   console.log('HELLO')
   csv.fromPath(req.file.path, { headers: true })
     .on("data", (data) => {
-      console.log(data)
-      console.log(typeof data)
+      //console.log(data)
+      //console.log(typeof data)
       fileRows.push(data);
     })
     .on("end", () => {

@@ -23,7 +23,7 @@ module.exports = (data, callback) => {
             // Insert data into users table
             db.run(`INSERT OR IGNORE INTO users (${ columns }) VALUES ${ values }`, (err) => {
               if (err) {
-                console.log('columns', columns);
+                //console.log('columns', columns);
                 console.error('B:', err.message || err);
               }  
               else {
