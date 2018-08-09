@@ -12,7 +12,7 @@ const router = new Router();
 const server = http.createServer(app);
 const port = 9000;
 
-const insert = require('./connect');
+const insertData = require('./insert-data');
 
 router.post('/', upload.single('users'), (req, res) => {
   const fileRows = [];
@@ -26,7 +26,7 @@ router.post('/', upload.single('users'), (req, res) => {
       fileRows.push(data);
     })
     .on("end", () => {
-      insert(fileRows, respondWithUsers);
+      insertData(fileRows, respondWithUsers);
       fs.unlinkSync(req.file.path);
     });
 });

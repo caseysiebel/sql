@@ -4,11 +4,13 @@ const generateQueryParams = require('./generate-query-params');
 const users_schema = require('./users_schema');
 
 module.exports = (data, callback) => {
+  // Open database connection
   const db = new sqlite3.Database('./db/users.db', (err) => {
     if (err) {
       console.error(err.message || err);
     }
     else { 
+      console.log('Succesfully connected to database');
       db.serialize(() => {
         db.run(`CREATE TABLE IF NOT EXISTS users(${ users_schema })`, (err) => {
           if (err) {
