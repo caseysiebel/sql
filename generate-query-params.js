@@ -15,10 +15,10 @@ module.exports = (data) => {
   const numRows = data.length;
   data.forEach((row, i) => {
     if (i === numRows - 1 || numRows === 1) {
-      values += `('${ row[cols[0]] }', '${ row[cols[1]]}', '${ row[cols[2]] }', '${ row[cols[3]] }', '${ row[cols[4]] }', '${ row[cols[5]] }', '${ row[cols[6]] }', '${ row[cols[7]] }')`;
+      values += `('${ row[cols[0]] | null }', '${ row[cols[1]] | null}', '${ row[cols[2]] | null }', '${ row[cols[3]] | null }', '${ row[cols[4]] | null }', '${ row[cols[5]] | null }', '${ row[cols[6]] | null }', '${ row[cols[7]] | null }')`;
     }
     else {
-      values += `('${ row[cols[0]] }', '${ row[cols[1]]}', '${ row[cols[2]] }', '${ row[cols[3]] }', '${ row[cols[4]] }', '${ row[cols[5]] }', '${ row[cols[6]] }', '${ row[cols[7]] }'), `;
+      values += `('${ row[cols[0]] | null }', '${ row[cols[1]] | null}', '${ row[cols[2]] | null }', '${ row[cols[3]] | null }', '${ row[cols[4]] | null }', '${ row[cols[5]] | null }', '${ row[cols[6]] | null }', '${ row[cols[7]] | null }'), `;
     }
   })
   return [ cols.map(col => `'${col}'`) , values ];
