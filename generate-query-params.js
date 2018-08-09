@@ -1,4 +1,4 @@
-const cols = [
+const columns = [
   'First Name',
   'Middle Initial',
   'Last Name',
@@ -9,33 +9,30 @@ const cols = [
   'UUID'
 ];
 
-let queryCols = '';
-
-module.exports = (data) => {
-  let columns;
+module.exports = (rows) => {
+  let queryColumns = '';
   let values = '';
-  let queryCols = '';
-  const numRows = data.length;
-  data.forEach((row, i) => {
+  const numRows = rows.length;
+  rows.forEach((row, i) => {
     let rowValue = '';
-    cols.forEach((col, j) => {
-      if(row[col]) {
-        rowValue += `'${ row[col] }'`;
-        if (j !== cols.length - 1) {
+    columns.forEach((column, j) => {
+      if(row[column]) {
+        rowValue += `'${ row[column] }'`;
+        if (j !== columns.length - 1) {
           rowValue += ', ';
         }
         if (i === 0) {
-          queryCols += col;
-          if (j !== cols.length - 1) {
-            queryCols += ', ';
+          queryColumns += `'${ column }'`;
+          if (j !== columns.length - 1) {
+            queryColumns += ', ';
           }
         }
       }
-    })
+    });
     values += `(${ rowValue })`;
     if (i !== numRows - 1) {
       values += ', ';
     }
   })
-  return [ queryCols,  values ];
+  return [ queryColumns, values ];
 }
