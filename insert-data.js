@@ -14,7 +14,7 @@ module.exports = (data, callback) => {
       db.serialize(() => {
         db.run(`CREATE TABLE IF NOT EXISTS users(${ users_schema })`, (err) => {
           if (err) {
-            console.error('A:', err.message || err);
+            console.error(err.message || err);
           } 
           else {
             const sqlParams = generateQueryParams(data);
@@ -23,8 +23,7 @@ module.exports = (data, callback) => {
             // Insert data into users table
             db.run(`INSERT OR IGNORE INTO users (${ columns }) VALUES ${ values }`, (err) => {
               if (err) {
-                //console.log('columns', columns);
-                console.error('B:', err.message || err);
+                console.error(err.message || err);
               }  
               else {
                 console.log('Succcesfully inserted');
