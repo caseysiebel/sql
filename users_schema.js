@@ -9,4 +9,5 @@ const users_schema = [
   "UUID INTEGER PRIMARY KEY"
 ];
 
+
 module.exports = users_schema.join(', ');
