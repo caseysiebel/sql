@@ -14,10 +14,10 @@ const port = 9000;
 
 const insert = require('./connect');
 
-router.post('/', upload.single('file'), (req, res) => {
+router.post('/', upload.single('users'), (req, res) => {
   const fileRows = [];
 
-  const respondWithUsers  = (users) => {
+  const respondWithUsers = (users) => {
     res.json(users);
   };
 
@@ -31,13 +31,13 @@ router.post('/', upload.single('file'), (req, res) => {
     });
 });
 
-app.use('/upload-csv', router);
+app.use('/upload-users', router);
 
-function startServer() {
-  server.listen(port, () => {
-    console.log('Express server listening on ', port);
-    console.log('')
-  });
+if(!fs.existsSync('./db')){
+  fs.mkdirSync('./db');
 }
 
-setImmediate(startServer);
+server.listen(port, () => {
+  console.log('Express server listening on ', port);
+});
+
