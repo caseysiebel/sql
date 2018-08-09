@@ -1,8 +1,8 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const users_schema = "'First Name' TEXT, 'Last Name' TEXT, 'Middle Initial' CHARACTER, 'Email' TEXT, 'Street Address' TEXT, 'Zip Code' TEXT, 'Joined Date' TEXT, 'UUID' INTEGER PRIMARY KEY";
+const users_schema = require('./users_schema');
 
-let columns;
+console.log('users_schema', users_schema);
 
 module.exports = (data, callback) => {
   const db = new sqlite3.Database('./sample.db', (err) => {
@@ -13,27 +13,36 @@ module.exports = (data, callback) => {
       db.serialize(() => {
         db.run(`CREATE TABLE IF NOT EXISTS users(${ users_schema })`, (err) => {
           if (err) {
-            console.error(err);
+            console.error('A:', err);
           } 
           else {
+            let columns;
             let values = '';
+            /*
+            const headers = `'${data.shift().join(`', '`)}'`;
+            console.log('headers', headers)
+
+            const values = `(${ data.join('), (')})`;
+            */
+
             data.forEach((row, i) => {
               const rowStr = `'${ row.join(`', '`) }'`;
               if (i === 0) {
                 columns = rowStr;
               } 
-              else if (i === data.length - 2){
-                values += `(${rowStr}), `
+              else if (i === data.length - 1){
+                values += `(${rowStr})`
               }
               else {
-                values += `(${rowStr})`
+                values += `(${rowStr}), `
               }
             });
             db.run(
-              `REPLACE INTO users (${ columns }) VALUES ${ values }`,
+              `INSERT INTO users (${ columns }) VALUES ${ values }`,
               (err) => {
                 if (err) {
-                  console.error(err);
+                  console.error('B:', err);
+                  console.log('VALUES', values)
                 }  
                 else {
                   console.log('Succcesfully instered');
