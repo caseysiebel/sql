@@ -18,13 +18,6 @@ module.exports = (data, callback) => {
           else {
             let columns;
             let values = '';
-            /*
-            const headers = `'${data.shift().join(`', '`)}'`;
-            console.log('headers', headers)
-
-            const values = `(${ data.join('), (')})`;
-            */
-
             data.forEach((row, i) => {
               const rowStr = `'${ row.join(`', '`) }'`;
               if (i === 0) {
