@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const users_schema = "'First Name', 'Last Name', 'Middle Initial', 'Email', 'Street Address', 'Zip Code', 'Joined Date', 'UUID'";
+const users_schema = "'First Name' TEXT, 'Last Name' TEXT, 'Middle Initial' CHARACTER, 'Email' TEXT, 'Street Address' TEXT, 'Zip Code' TEXT, 'Joined Date' TEXT, 'UUID' INTEGER PRIMARY KEY";
 
 let columns;
 
