@@ -38,7 +38,7 @@ module.exports = (data, callback) => {
               }
             });
             db.run(
-              `REPLACE INTO users (${ columns }) VALUES ${ values }`,
+              `INSERT OR IGNORE INTO users (${ columns }) VALUES ${ values }`,
               (err) => {
                 if (err) {
                   console.error('B:', err);
