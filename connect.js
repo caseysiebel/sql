@@ -24,12 +24,12 @@ module.exports = (data, callback) => {
                 console.error(err.message || err);
               }  
               else {
-                console.log('Succcesfully instered');
+                console.log('Succcesfully inserted');
               }
             } 
             );
             // Respond to client with current table contents
-            db.all('SELECT * FROM asd users', (err, users) => {
+            db.all('SELECT * FROM users', (err, users) => {
               if (err) {
                 console.error(err.message || err);
               }

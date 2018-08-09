@@ -33,6 +33,7 @@ router.post('/', upload.single('users'), (req, res) => {
 
 app.use('/upload-users', router);
 
+// Create database diectory
 if(!fs.existsSync('./db')){
   fs.mkdirSync('./db');
 }
