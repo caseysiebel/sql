@@ -16,26 +16,30 @@ module.exports = (data, callback) => {
             console.error(err);
           } 
           else {
-            console.log('Created the table or it exists');
+            let values = '';
             data.forEach((row, i) => {
               const rowStr = `'${ row.join(`', '`) }'`;
               if (i === 0) {
                 columns = rowStr;
               } 
+              else if (i === data.length - 2){
+                values += `(${rowStr}), `
+              }
               else {
-                db.run(
-                  `REPLACE INTO users (${ columns }) VALUES (${ rowStr })`,
-                  (err) => {
-                    if (err) {
-                      console.error(err);
-                    }  
-                    else {
-                      console.log('Succcesfully instered');
-                    }
-                  } 
-                );
+                values += `(${rowStr})`
               }
             });
+            db.run(
+              `REPLACE INTO users (${ columns }) VALUES ${ values }`,
+              (err) => {
+                if (err) {
+                  console.error(err);
+                }  
+                else {
+                  console.log('Succcesfully instered');
+                }
+              } 
+            );
             db.all('SELECT * FROM users', (err, users) => {
               callback(users);
             });
